@@ -20,7 +20,7 @@ function createGalleryEl(galleryItems) {
 }
 
 function onGalleryElClick(event) {
-    // window.addEventListener('keydown', onEscPress)
+    window.addEventListener('keydown', onEscPress)
   event.preventDefault();
   if (!event.target.classList.contains("gallery__image")) {
     return;
@@ -28,13 +28,17 @@ function onGalleryElClick(event) {
     const instance =
         basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">
 `);
-  instance.show();
+    instance.show();
+    
+    function onEscPress(event) {
+    if (!event.code === 'Escape') {
+    return
+    }
+    console.log('ESC')
+    window.removeEventListener('keydown', onEscPress)
+    instance.close()
 }
 
-// function onEscPress(event) {
-//     console.log('ESC')
-//     window.removeEventListener('keydown', onEscPress)
-//     instance.close()
-// }
+}
 
 console.log(galleryItems);
